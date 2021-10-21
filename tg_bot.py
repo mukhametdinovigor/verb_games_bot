@@ -1,3 +1,5 @@
+import random
+
 from environs import Env
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
@@ -14,8 +16,18 @@ def start(update, context):
 
 
 def echo(update, context):
+    answers = (
+        'А вот это не совсем понятно.',
+        'Вот сейчас я тебя совсем не понимаю.',
+        'Попробуй, пожалуйста, выразить свою мысль по другому.',
+        'Не совсем понимаю, о чём ты.',
+        'Вот эта последняя фраза мне не ясна.'
+    )
     dg_flow_text = get_dg_flow_text(gc_project_id, gc_session_id, update.message.text, language_code)
-    update.message.reply_text(dg_flow_text)
+    if dg_flow_text:
+        update.message.reply_text(dg_flow_text)
+    else:
+        update.message.reply_text(random.choice(answers))
 
 
 def main():

@@ -11,11 +11,13 @@ env = Env()
 
 def echo(event, vk_api):
     dg_flow_text = get_dg_flow_text(gc_project_id, gc_session_id, event.text, language_code)
-    vk_api.messages.send(
-        user_id=event.user_id,
-        message=dg_flow_text,
-        random_id=random.randint(1, 1000)
-    )
+    if dg_flow_text:
+        vk_api.messages.send(
+            user_id=event.user_id,
+            message=dg_flow_text,
+            random_id=random.randint(1, 1000)
+        )
+    pass
 
 
 def main():
