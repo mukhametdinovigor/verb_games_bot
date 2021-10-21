@@ -1,10 +1,12 @@
 import random
-import os
 
+from environs import Env
 import vk_api as vk
 from vk_api.longpoll import VkLongPoll, VkEventType
 
 from utils import get_dg_flow_text, gc_session_id, gc_project_id, language_code
+
+env = Env()
 
 
 def echo(event, vk_api):
@@ -17,7 +19,7 @@ def echo(event, vk_api):
 
 
 def main():
-    vk_session = vk.VkApi(token=os.environ['VK_TOKEN'])
+    vk_session = vk.VkApi(token=env.str('VK_TOKEN'))
     vk_api = vk_session.get_api()
     longpoll = VkLongPoll(vk_session)
     for event in longpoll.listen():

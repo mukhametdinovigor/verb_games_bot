@@ -1,9 +1,11 @@
-import os
-
+from environs import Env
 from google.cloud import dialogflow
 
-gc_project_id = os.environ['GC_PROJECT_ID']
-gc_session_id = os.environ['GC_SESSION_ID']
+env = Env()
+
+
+gc_project_id = env.str('GC_PROJECT_ID')
+gc_session_id = env.str('GC_SESSION_ID')
 language_code = 'ru-RU'
 
 

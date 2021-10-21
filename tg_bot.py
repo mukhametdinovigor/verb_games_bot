@@ -1,8 +1,9 @@
-import os
-
+from environs import Env
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
 from utils import get_dg_flow_text, gc_session_id, gc_project_id, language_code
+
+env = Env()
 
 
 def start(update, context):
@@ -18,7 +19,7 @@ def echo(update, context):
 
 
 def main():
-    updater = Updater(os.environ['BOT_TOKEN'])
+    updater = Updater(env.str('BOT_TOKEN'))
     dispatcher = updater.dispatcher
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(MessageHandler(Filters.text, echo))
