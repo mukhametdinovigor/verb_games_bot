@@ -57,7 +57,7 @@ pip install -r requirements.txt
 
 У вас должен быть [зарегистрированный бот в Telegram](https://telegram.me/BotFather)
 
-У вас должен быть [аккаунт в DialogFlow](https://telegram.me/BotFather) и проект в нём.
+У вас должен быть [аккаунт в DialogFlow](https://dialogflow.cloud.google.com/) и проект в нём.
 В проекте вам нужно создать новый Intent, добавить Training phrases и добавить Response.
 Чтобы обучить DialogFlow автоматически, запустите в командной строке:
 
