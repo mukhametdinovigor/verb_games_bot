@@ -1,11 +1,15 @@
+import logging
 import random
+import time
 
 from environs import Env
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+from telegram.error import TimedOut, NetworkError
 
-from utils import get_dg_flow_text, gc_session_id, gc_project_id, language_code
+from utils import get_dg_flow_text, gc_session_id, gc_project_id, language_code, logger, TelegramLogsHandler
 
 env = Env()
+env.read_env()
 
 
 def start(update, context):
@@ -31,12 +35,24 @@ def echo(update, context):
 
 
 def main():
+    chat_id = env.str('CHAT_ID')
     updater = Updater(env.str('BOT_TOKEN'))
-    dispatcher = updater.dispatcher
-    dispatcher.add_handler(CommandHandler("start", start))
-    dispatcher.add_handler(MessageHandler(Filters.text, echo))
-    updater.start_polling()
-    updater.idle()
+    logger.setLevel(logging.WARNING)
+    logger.addHandler(TelegramLogsHandler(chat_id))
+    logger.warning('TG_Bot запущен.')
+    while True:
+        dispatcher = updater.dispatcher
+        dispatcher.add_handler(CommandHandler("start", start))
+        dispatcher.add_handler(MessageHandler(Filters.text, echo))
+        try:
+            updater.start_polling()
+            updater.idle()
+        except TimedOut:
+            continue
+        except NetworkError:
+            logger.exception('Произошла ошибка')
+            time.sleep(60)
+            continue
 
 
 if __name__ == '__main__':

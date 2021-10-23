@@ -1,8 +1,12 @@
 import os
 import json
 
+from environs import Env
 from google.cloud import dialogflow
 from google.api_core.exceptions import InvalidArgument
+
+env = Env()
+env.read_env()
 
 
 def create_intent(project_id, display_name, training_phrases_parts, message_texts):
@@ -25,7 +29,7 @@ def create_intent(project_id, display_name, training_phrases_parts, message_text
 
 
 def main():
-    gc_project_id = os.environ['GC_PROJECT_ID']
+    gc_project_id = env.str('GC_PROJECT_ID')
     with open("questions.json", "r", encoding='utf-8') as file:
         questions = json.load(file)
     for intent in questions:
