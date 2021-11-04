@@ -14,11 +14,11 @@
 
 - Бот для Telegram
 
-![бот для Telegram](demo_tg_bot.gif)
+![бот для Telegram](examples/demo_tg_bot.gif)
 
 - Бот для VK
 
-![бот для VK](demo_vk_bot.gif)
+![бот для VK](examples/demo_vk_bot.gif)
 
 
 
