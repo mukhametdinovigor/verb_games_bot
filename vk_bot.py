@@ -7,8 +7,9 @@ from environs import Env
 import vk_api as vk
 from vk_api.longpoll import VkLongPoll, VkEventType
 from vk_api.exceptions import ApiHttpError
-from tg_logs_handler import logger, TelegramLogsHandler
+from tg_logs_handler import TelegramLogsHandler
 
+logger = logging.getLogger('Logger')
 env = Env()
 env.read_env()
 

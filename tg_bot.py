@@ -6,8 +6,9 @@ from environs import Env
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from telegram.error import TimedOut, NetworkError
 
-from tg_logs_handler import logger, TelegramLogsHandler
+from tg_logs_handler import TelegramLogsHandler
 
+logger = logging.getLogger('Logger')
 env = Env()
 env.read_env()
 

@@ -3,8 +3,6 @@ import logging
 from environs import Env
 import telegram
 
-logger = logging.getLogger('Logger')
-
 env = Env()
 env.read_env()
 
