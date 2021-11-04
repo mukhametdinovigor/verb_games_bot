@@ -12,7 +12,7 @@ env = Env()
 env.read_env()
 
 gc_project_id = env.str('GC_PROJECT_ID')
-gc_session_id = env.str('GC_SESSION_ID')
+tg_gc_session_id = f"tg-{ env.str('GC_SESSION_ID')}"
 language_code = env.str('LANGUAGE_CODE')
 
 
@@ -35,7 +35,7 @@ def start(update, context):
 
 
 def send_dg_flow_text(update, context):
-    dg_flow_text = get_dg_flow_text(gc_project_id, gc_session_id, update.message.text, language_code)
+    dg_flow_text = get_dg_flow_text(gc_project_id, tg_gc_session_id, update.message.text, language_code)
     update.message.reply_text(dg_flow_text)
 
 
@@ -48,7 +48,7 @@ def main():
     while True:
         dispatcher = updater.dispatcher
         dispatcher.add_handler(CommandHandler("start", start))
-        dispatcher.add_handler(MessageHandler(Filters.text, echo))
+        dispatcher.add_handler(MessageHandler(Filters.text, send_dg_flow_text))
         try:
             updater.start_polling()
             updater.idle()
