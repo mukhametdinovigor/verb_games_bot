@@ -1,15 +1,30 @@
 import logging
-import random
 import time
 
+from google.cloud import dialogflow
 from environs import Env
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from telegram.error import TimedOut, NetworkError
 
-from utils import get_dg_flow_text, gc_session_id, gc_project_id, language_code, logger, TelegramLogsHandler
+from tg_logs_handler import logger, TelegramLogsHandler
 
 env = Env()
 env.read_env()
+
+gc_project_id = env.str('GC_PROJECT_ID')
+gc_session_id = env.str('GC_SESSION_ID')
+language_code = env.str('LANGUAGE_CODE')
+
+
+def get_dg_flow_text(project_id, session_id, text, language_code):
+    session_client = dialogflow.SessionsClient()
+    session = session_client.session_path(project_id, session_id)
+    text_input = dialogflow.TextInput(text=text, language_code=language_code)
+    query_input = dialogflow.QueryInput(text=text_input)
+    response = session_client.detect_intent(
+        request={"session": session, "query_input": query_input}
+    )
+    return response.query_result.fulfillment_text
 
 
 def start(update, context):
@@ -20,19 +35,8 @@ def start(update, context):
 
 
 def echo(update, context):
-    answers = (
-        'А вот это не совсем понятно.',
-        'Вот сейчас я тебя совсем не понимаю.',
-        'Попробуй, пожалуйста, выразить свою мысль по другому.',
-        'Не совсем понимаю, о чём ты.',
-        'Вот эта последняя фраза мне не ясна.'
-    )
     dg_flow_text = get_dg_flow_text(gc_project_id, gc_session_id, update.message.text, language_code)
-    if dg_flow_text:
-        update.message.reply_text(dg_flow_text)
-    else:
-        update.message.reply_text(random.choice(answers))
-
+    update.message.reply_text(dg_flow_text)
 
 def main():
     chat_id = env.str('CHAT_ID')
