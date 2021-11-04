@@ -29,7 +29,7 @@ def get_dg_flow_text(project_id, session_id, text, language_code):
         return response.query_result.fulfillment_text
 
 
-def echo(event, vk_api):
+def send_dg_flow_text(event, vk_api):
     dg_flow_text = get_dg_flow_text(gc_project_id, gc_session_id, event.text, language_code)
     if dg_flow_text:
         vk_api.messages.send(

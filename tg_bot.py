@@ -34,9 +34,10 @@ def start(update, context):
     )
 
 
-def echo(update, context):
+def send_dg_flow_text(update, context):
     dg_flow_text = get_dg_flow_text(gc_project_id, gc_session_id, update.message.text, language_code)
     update.message.reply_text(dg_flow_text)
+
 
 def main():
     chat_id = env.str('CHAT_ID')
