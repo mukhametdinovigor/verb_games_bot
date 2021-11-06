@@ -24,8 +24,9 @@ def start(update, context):
 
 
 def send_dg_flow_text(update, context):
-    TG_GC_SESSION_ID = f"tg-{update.effective_chat.id}"
-    is_fallback, dg_flow_text = get_dg_flow_text(GC_PROJECT_ID, TG_GC_SESSION_ID, update.message.text, LANGUAGE_CODE)
+    tg_gs_session_id = f"tg-{update.effective_chat.id}"
+
+    is_fallback, dg_flow_text = get_dg_flow_text(GC_PROJECT_ID, tg_gs_session_id, update.message.text, LANGUAGE_CODE)
     update.message.reply_text(dg_flow_text)
 
 

@@ -19,8 +19,8 @@ LANGUAGE_CODE = env.str('LANGUAGE_CODE')
 
 
 def send_dg_flow_text(event, vk_api):
-    VK_GC_SESSION_ID = f"vk-{event.user_id}"
-    is_fallback, dg_flow_text = get_dg_flow_text(GC_PROJECT_ID, VK_GC_SESSION_ID, event.text, LANGUAGE_CODE)
+    vk_gs_session_id = f"vk-{event.user_id}"
+    is_fallback, dg_flow_text = get_dg_flow_text(GC_PROJECT_ID, vk_gs_session_id, event.text, LANGUAGE_CODE)
     if not is_fallback:
         vk_api.messages.send(
             user_id=event.user_id,
