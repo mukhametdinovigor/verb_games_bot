@@ -1,4 +1,11 @@
+import secrets
+import string
+
 from google.cloud import dialogflow
+
+
+alphabet = string.ascii_letters + string.digits
+GC_SESSION_ID = ''.join(secrets.choice(alphabet) for i in range(9))
 
 
 def get_dg_flow_text(project_id, session_id, text, language_code):

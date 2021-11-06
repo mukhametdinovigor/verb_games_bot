@@ -7,27 +7,26 @@ import vk_api as vk
 from vk_api.longpoll import VkLongPoll, VkEventType
 from vk_api.exceptions import ApiHttpError
 
-from dg_flow_api import get_dg_flow_text
+from dg_flow_api import get_dg_flow_text, GC_SESSION_ID
 from tg_logs_handler import TelegramLogsHandler
 
 logger = logging.getLogger('Logger')
 env = Env()
 env.read_env()
 
-gc_project_id = env.str('GC_PROJECT_ID')
-vk_gc_session_id = f"vk-{env.str('GC_SESSION_ID')}"
-language_code = env.str('LANGUAGE_CODE')
+VK_GC_SESSION_ID = f"vk-{GC_SESSION_ID}"
+GC_PROJECT_ID = env.str('GC_PROJECT_ID')
+LANGUAGE_CODE = env.str('LANGUAGE_CODE')
 
 
 def send_dg_flow_text(event, vk_api):
-    is_fallback, dg_flow_text = get_dg_flow_text(gc_project_id, vk_gc_session_id, event.text, language_code)
+    is_fallback, dg_flow_text = get_dg_flow_text(GC_PROJECT_ID, VK_GC_SESSION_ID, event.text, LANGUAGE_CODE)
     if not is_fallback:
         vk_api.messages.send(
             user_id=event.user_id,
             message=dg_flow_text,
             random_id=random.randint(1, 1000)
         )
-    pass
 
 
 def main():
