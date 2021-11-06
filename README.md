@@ -92,7 +92,6 @@ python teach_dialogflow.py
 - `VK_TOKEN` — токен Вконтакте
 - `GC_PROJECT_ID` — идентификатор проекта [Google Cloud](https://cloud.google.com/dialogflow/es/docs/quick/setup)
 - `GOOGLE_APPLICATION_CREDENTIALS` - путь к json файлу с учетными данными от [Google](https://cloud.google.com/docs/authentication/getting-started)
-- `GC_SESSION_ID` - может быть любым значением, например `123456789`
 - `BUG_REPORTING_BOT_TOKEN` - токен бота в телеграм, куда будут отправлятся сообщения об ошибках
 - `CHAT_ID` - ваш chat_id в телеграм
 
