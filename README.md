@@ -7,7 +7,7 @@
 
 Пообщаться с ботом можно:
 
-- в Телеграм [@VerbGamesBot](t.me/VerbGamesBot)
+- в Телеграм [@VerbGamesBot]((https://t.me/VerbGamesBot)
 - Вконтакте в группе [Verb_Games](https://vk.com/club208071622) кликнуть на `Написать сообщение`
 
 Также пример работы ботов можно посмотреть на гифке
